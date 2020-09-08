@@ -13,7 +13,7 @@
 周五: 8：00 --12:00 , 逸夫楼 334.
 ## 答疑时间: 
 周二: 09:00-11:00 , 维格堂 113.
-#参考文献
+## 参考文献
 - [应用回归分析](https://item.jd.com/12663576.html)
 - 	[Regression Analysis by Example](http://www1.aucegypt.edu/faculty/hadi/RABE5/)
 - [回归分析](https://item.jd.com/11197339.html)
