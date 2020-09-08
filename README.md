@@ -21,6 +21,7 @@
 - 考勤+作业 20%
 - 期中+大作业 30%
 - 期末考试 50%
+- 初步打算成立读书会，分享图书[Econometrics.Bruce E. Hansen University of Wisconsin](https://www.ssc.wisc.edu/~bhansen/econometrics/).
 ## 课程安排(暂定)
 1. 09.11 第1章 和 R语言介绍
 2. 09.18 第2章 
