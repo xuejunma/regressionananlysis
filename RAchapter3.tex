@@ -1,0 +1,1008 @@
+\documentclass[mathserif,compress,cjk,10pt]{beamer}
+
+%\mode<presentation>
+%{
+%  \usetheme{Warsaw}
+%  % 可供选择的主题参见 beameruserguide.pdf, 第 134 页起
+%  % 无导航条的主题: Bergen, Boadilla, Madrid, Pittsburgh, Rochester;
+%  % 有树形导航条的主题: Antibes, JuanLesPins, Montpellier;
+%  % 有目录竖条的主题: Berkeley, PaloAlto, Goettingen, Marburg, Hannover;
+%  % 有圆点导航条的主题: Berlin, Dresden, Darmstadt, Frankfurt, Singapore, Szeged;
+%  % 有节与小节导航条的主题: Copenhagen, Luebeck, Malmos, Warsaw
+%
+%%  \setbeamercovered{transparent}
+%% 如果取消上一行的注解 %, 就会使得被覆盖部分变得透明(依稀可见)
+%}
+
+\usepackage{CJK}
+\usepackage{hyperref}
+\hypersetup{CJKbookmarks=true}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{manfnt}
+%\usepackage{colortbl}
+\usepackage{tikz} %%画图
+\usepackage{pgfplots}
+
+\usepackage{bm}
+\usepackage{calligra}
+\usepackage[T1]{pbsi}
+
+\usepackage{fancyvrb}
+\fvset{frame=lines,framesep=1mm,fontfamily=courier,
+fontsize=\small,numbers=left, framerule=0.5pt, %rulecolor=\color{blue}, %formatcom=\color{red}, fontsize=\scriptsize
+numbersep=1mm}
+
+
+\usetheme{Frankfurt} % CambridgeUs
+%\usetheme{Madrid}
+%\usetheme{Pittsburgh}
+%\usetheme{Boadilla}
+%\usecolortheme{dove}% 没有颜色
+\usecolortheme{beaver}% 红色字体灰色背景 % beaver wolverine rose seahorse dove wolverine
+%\usecolortheme{rose}%% 经典的蓝色黑色
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           定制幻灯片--- 重定义字体、字号命令                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\song}{\CJKfamily{song}}    % 宋体   (Windows 自带simsun.ttf)
+\newcommand{\fs}{\CJKfamily{fs}}        % 仿宋体 (Windows 自带simfs.ttf)
+\newcommand{\kai}{\CJKfamily{kai}}      % 楷体   (Windows 自带simkai.ttf)
+\newcommand{\hei}{\CJKfamily{hei}}      % 黑体   (Windows 自带simhei.ttf)
+\newcommand{\li}{\CJKfamily{li}}        % 隶书   (Windows 自带simli.ttf)
+\newcommand{\you}{\CJKfamily{you}}      % 幼圆   (Windows 自带simyou.ttf)
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont} % 字号设置
+\newcommand{\yichu}{\fontsize{32pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+
+
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+
+\setbeamertemplate{footline}[frame number]{}
+%\setCJKfamilyfont{fzse}{方正少儿简体}
+%\newcommand{\fzse}{\CJKfamily{fzse}}
+\newcommand{\E}{{\bf E}}
+\newcommand{\Cov}{{\bf Cov}}
+\newcommand{\Var}{{\bf Var}}
+
+
+\def\Ared{{\rm Ared}}
+\def\Pred{{\rm Pred}}
+\def\arg{{\rm arg}}
+
+\newfont{\bb}{msbm10}
+\newcommand{\vecspace}{\bf C}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\Frac}{\displaystyle\frac}
+\newcommand{\Sum}{\displaystyle\sum}
+\newcommand{\Lim}{\displaystyle\lim}
+\newcommand{\argmin}{\makebox{{\rm argmin}}}
+\newcommand{\h}{\hspace}
+\begin{document}
+\begin{CJK*}{GBK}{song}
+\CJKtilde
+
+%======================= 标题名称中文化 ============================%
+\newtheorem{dingyi}{\hei 定义~}[section]
+\newtheorem{dingli}{\hei 定理~}[section]
+\newtheorem{yinli}[dingli]{\hei 引理~}
+\newtheorem{tuilun}[dingli]{\hei 推论~}
+\newtheorem{mingti}[dingli]{\hei 命题~}
+
+\makeatletter
+\renewcommand\theequation{\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+\pagenumbering{arabic}
+
+\title[应用回归分析]{第三章：多元线性回归}   % 如果标题不长, [短标题]可以略去
+
+\author[Ma Xuejun ]{马学俊(主讲)~~杜悦(助教)}%\\[0.5em]
+\institute[Suda]{苏州大学\\ [0.5em]数学科学学院\vspace{10pt}\\
+\url{https://xuejunma.github.io/}}
+\date{}
+
+
+\titlegraphic{\includegraphics[height=0.10\textwidth]{suda.jpg}}
+
+
+%\titlegraphic{\includegraphics[height=0.17\textwidth]{images/ruc.jpg}}
+
+% 插入学校的徽章
+%一张PPT
+
+\begin{frame}% 自动目录
+  \titlepage
+\end{frame}
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{多元线性回归模型}
+\subsection{}
+\begin{frame}{多元线性回归模型的一般形式}
+设随机变量$y$与一般变量$x_1,x_2,\ldots,x_p$的线性回归模型为：
+$$y=\beta_0 + \beta_1 x_1 +\beta_2 x_2 + \cdots + \beta_p x_p +\epsilon
+$$
+对于随机误差项假定：
+$$\left\{
+\begin{aligned}
+&E(\epsilon)=0\\
+&var(\epsilon)=\sigma^2
+\end{aligned}
+\right.
+$$
+对于$n$组观测数据$(x_{i1},x_{i2},\cdots,x_{ip};y_i),i=1,2,\ldots,n$，线性回归模型表示为：
+$$\left\{
+\begin{aligned}
+y_1 &= \beta_0 + \beta_1 x_{11} +\beta_2 x_{12} + \cdots + \beta_p x_{1p} +\epsilon_1\\
+y_2 &= \beta_0 + \beta_1 x_{21} +\beta_2 x_{22} + \cdots + \beta_p x_{2p} +\epsilon_2\\
+ &\vdots \\
+y_n &= \beta_0 + \beta_1 x_{n1} +\beta_2 x_{n2} + \cdots + \beta_p x_{np} +\epsilon_n
+\end{aligned}
+\right.
+$$
+\end{frame}
+
+\begin{frame}{多元线性回归模型的一般形式}
+写成矩阵的形式为
+$$\boldsymbol{y}=\boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}
+$$
+其中
+$$
+\boldsymbol{y}=\begin{pmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{pmatrix}
+\qquad
+\boldsymbol{X}=\begin{pmatrix}
+1 & x_{11} & x_{12} & \cdots & x_{1p}\\
+1 & x_{21} & x_{22} & \cdots & x_{2p}\\
+\vdots & \vdots &\vdots & &\vdots \\
+1 & x_{n1} & x_{n2} & \cdots & x_{np}
+\end{pmatrix}
+{\color{blue}
+\mbox{(设计矩阵)}
+}
+$$
+
+$$
+\boldsymbol{\beta}=\begin{pmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_p
+\end{pmatrix}
+\qquad
+\boldsymbol{\epsilon}=\begin{pmatrix}
+\epsilon_1 \\
+\epsilon_2 \\
+\vdots \\
+\epsilon_n
+\end{pmatrix}
+$$
+\end{frame}
+
+
+\subsection{}
+\begin{frame}{多元线性回归模型的基本假定}
+\begin{enumerate}[(1)]
+  \item 解释变量$x_1,x_2,\ldots,x_p$是确定性变量，不是随机变量，且要求$rank(\boldsymbol{X})=p+1<n$。表明设计矩阵$\boldsymbol{X}$中的自变量列之间不相关，$\boldsymbol{X}$ 是列满秩矩阵。
+  \item 随机误差项具有0均值和等方差,即
+  $$\left\{
+  \begin{aligned}
+  E(\epsilon_i)&=0,\quad i=1,2,\ldots,n\\
+  cov(\epsilon_i,\epsilon_j)&=\left\{
+  \begin{aligned}
+  \sigma^2,i=j\\
+  0, i \ne j
+  \end{aligned}
+  \right.
+  \quad i,j=1,2,\ldots,n
+  \end{aligned}
+  \right.
+  $$
+  这个假定称为Gauss-Markov条件
+  \item 正态分布的假定条件为:
+  $$\left\{
+  \begin{aligned}
+  & \epsilon_i \sim N(0,\sigma^2)\\
+  & \epsilon_1,\epsilon_2,\ldots,\epsilon_n \quad \mbox{相互独立}
+  \end{aligned}
+  \right.
+  $$
+  矩阵形式表示为
+  $$ \boldsymbol{\epsilon} \sim N(0,\sigma^2 \boldsymbol{I}_n)
+  $$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{多元线性回归模型的基本假定}
+在正态假定下：
+$$ \boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta},\sigma^2 \boldsymbol{I}_n)
+$$
+$$E(\boldsymbol{y})=\boldsymbol{X} \boldsymbol{\beta}
+$$
+$$var(\boldsymbol{y})=\sigma^2 \boldsymbol{I}_n
+$$
+\end{frame}
+
+\subsection{}
+\begin{frame}{多元线性回归方程的解释}
+\begin{itemize}
+  \item  $y$表示空调机的销售量，
+  \item  $x_1$表示空调机的价格，
+  \item  $x_2$表示消费者可用于支配的收入。
+\end{itemize}
+建立二元线性回归模型
+$$y=\beta_0 + \beta_1 x_1 +\beta_2 x_2 + \epsilon
+$$
+$$E(y)=\beta_0 + \beta_1 x_1 +\beta_2 x_2
+$$
+\begin{itemize}
+  \item 在$x_2$保持不变时，$\frac{\partial{E(y)}}{\partial{x_1}}=\beta_1$
+  \item $\beta_1$可解释为在消费者收入$x_2$保持不变时，空调机价格$x_1$每增加一个单位，空调机销售量$y$的平均增加幅度。
+  \item 在$x_1$保持不变时，$\frac{\partial{E(y)}}{\partial{x_2}}=\beta_2$
+\end{itemize}
+
+
+\end{frame}
+
+
+\section{回归参数的估计}
+\subsection{}
+\begin{frame}{回归参数的普通最小二乘估计}
+最小二乘估计要寻找$\hat{\beta}_0,\hat{\beta}_1,\hat{\beta}_2,\cdots,\hat{\beta}_p$，使得
+\begin{equation*}\label{2}
+\begin{aligned}
+&Q(\hat{\beta}_0,\hat{\beta}_1,\hat{\beta}_2,\cdots,\hat{\beta}_p) =\sum_{i=1}^{n}(y_i- \hat{\beta}_0-\hat{\beta}_1 x_{i1}-\hat{\beta}_2 x_{i2} -\cdots -\hat{\beta}_p x_{ip})^2\\
+&=\min_{\beta_0,\beta_1,\beta_2,\ldots,\beta_p}\sum_{i=1}^{n}(y_i- \beta_0-\beta_1 x_{i1}-\beta_2 x_{i2} -\cdots -\beta_p x_{ip})^2
+\end{aligned}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{回归参数的普通最小二乘估计}
+$$\left\{
+\begin{aligned}
+\frac{\partial{Q}}{\partial{\beta_0}}\Big{|}_{\beta_0=\hat{\beta}_0} &=-2\sum_{i=1}^{n}(y_i- \hat{\beta}_0-\hat{\beta}_1 x_{i1}-\hat{\beta}_2 x_{i2} -\cdots -\hat{\beta}_p x_{ip})\\
+\frac{\partial{Q}}{\partial{\beta_1}}\Big{|}_{\beta_1=\hat{\beta}_1} &=-2\sum_{i=1}^{n}(y_i- \hat{\beta}_0-\hat{\beta}_1 x_{i1}-\hat{\beta}_2 x_{i2} -\cdots -\hat{\beta}_p x_{ip})x_{i1}\\
+\frac{\partial{Q}}{\partial{\beta_2}}\Big{|}_{\beta_2=\hat{\beta}_2} &=-2\sum_{i=1}^{n}(y_i- \hat{\beta}_0-\hat{\beta}_1 x_{i1}-\hat{\beta}_2 x_{i2} -\cdots -\hat{\beta}_p x_{ip})x_{i2}\\
+& \vdots \\
+\frac{\partial{Q}}{\partial{\beta_p}}\Big{|}_{\beta_p=\hat{\beta}_p} &=-2\sum_{i=1}^{n}(y_i- \hat{\beta}_0-\hat{\beta}_1 x_{i1}-\hat{\beta}_2 x_{i2} -\cdots -\hat{\beta}_p x_{ip})x_{ip}\\
+\end{aligned}
+\right.
+$$
+\end{frame}
+
+\begin{frame}{回归参数的普通最小二乘估计}
+整理后得到矩阵形式表示的正规方程组
+$$\boldsymbol{X}'(\boldsymbol{y}-\boldsymbol{X} \hat{\boldsymbol{\beta}}) = \boldsymbol{0}
+$$
+移项得
+$$\boldsymbol{X}'\boldsymbol{X} \hat{\boldsymbol{\beta}} = \boldsymbol{X}'\boldsymbol{y}
+$$
+当$(\boldsymbol{X}'\boldsymbol{X})^{-1}$存在时，即得到回归参数的最小二乘估计为
+$$\hat{\boldsymbol{\beta}} = (\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y}
+$$
+%{\color{blue}
+%\begin{equation*}\label{2}
+%\begin{aligned}
+%& (\boldsymbol{X}'\boldsymbol{X})^{-1} \quad \Rightarrow \quad \vert \boldsymbol{X}'\boldsymbol{X} \vert \ne 0 \quad \Rightarrow \quad rank(\boldsymbol{X}'\boldsymbol{X})=p+1 \\
+%& \Rightarrow \quad rank(\boldsymbol{X}) \ge p+1 \quad \Rightarrow \quad \boldsymbol{X}_{n\times (p+1)} \quad \Rightarrow \quad  n \ge p+1
+%\end{aligned}
+%\end{equation*}
+%}
+\end{frame}
+
+\begin{frame}{回归值与残差}
+称
+$$\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \hat{\beta}_2 x_{i2} + \cdots + \hat{\beta}_p x_{ip}
+$$
+为观测值$y_i$得回归拟合值。
+$$\boldsymbol{y} = \boldsymbol{X} \hat{\boldsymbol{\beta}} = \boldsymbol{X} (\boldsymbol{X}'\boldsymbol{X})^{-1} \boldsymbol{X}'\boldsymbol{y}
+$$
+称
+$${\color{red} \boldsymbol{H} = \boldsymbol{X} (\boldsymbol{X}'\boldsymbol{X})^{-1} \boldsymbol{X}'}
+$$
+为帽子矩阵。其主对角线元素记为$h_{ii}$，帽子矩阵得迹为$tr(\boldsymbol{H})=\sum_{i=1}^{n}h_{ii}=p+1$。\\
+\begin{itemize}
+  \item 证明需要用到迹得性质$tr(\boldsymbol{AB})=tr(\boldsymbol{BA})$:
+
+\end{itemize}
+$$tr(\boldsymbol{H})=tr(\boldsymbol{X} (\boldsymbol{X}'\boldsymbol{X})^{-1} \boldsymbol{X}')=tr((\boldsymbol{X}'\boldsymbol{X})^{-1} \boldsymbol{X}' \boldsymbol{X} )
+=tr(\boldsymbol{I}_{p+1})=p+1
+$$
+\end{frame}
+
+\begin{frame}{回归值与残差}
+回归残差向量
+$$\boldsymbol{e}=(e_1,e_2,\cdots,r_n)'=\boldsymbol{y}-\hat{\boldsymbol{y}}=(\boldsymbol{I}-\boldsymbol{H})\boldsymbol{y}
+$$
+\begin{equation*}\label{2}
+\begin{aligned}
+D(\boldsymbol{e})&=cov(\boldsymbol{e},\boldsymbol{e})\\
+&= cov((\boldsymbol{I}-\boldsymbol{H})\boldsymbol{y},(\boldsymbol{I}-\boldsymbol{H})\boldsymbol{y})\\
+&=(\boldsymbol{I}-\boldsymbol{H})cov(\boldsymbol{y},\boldsymbol{y})(\boldsymbol{I}-\boldsymbol{H})'\\
+&=\sigma^2 (\boldsymbol{I}-\boldsymbol{H}){\color{red} \boldsymbol{I}}(\boldsymbol{I}-\boldsymbol{H})'\\
+&=\sigma^2 (\boldsymbol{I}-\boldsymbol{H}) \footnote{$\boldsymbol{I}-\boldsymbol{H}$是对称的幂等矩阵}
+\end{aligned}
+\end{equation*}
+得到
+$$D(e_i)=(1-h_{ii})\sigma^2
+$$
+\end{frame}
+
+\begin{frame}{回归值与残差}
+又因为
+$$E(\sum_{i=1}^{n}e_i^2)=\sum_{i=1}^{n}D(e_i)=(n-p-1)\sigma^2
+$$
+可得
+\begin{equation*}\label{2}
+\begin{aligned}
+\hat{\sigma}^2 &= \frac{1}{n-p-1}SSE=\frac{1}{n-p-1}(\boldsymbol{e}' \boldsymbol{e})\\
+&=\frac{1}{n-p-1}\sum_{i=1}^{n}e_i^2
+\end{aligned}
+\end{equation*}
+\end{frame}
+
+\subsection{}
+\begin{frame}{回归参数得最大似然估计}
+$\boldsymbol{y}$的概率分布为
+$$\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta},\sigma^2 \boldsymbol{I}_n)
+$$
+可以得到似然函数为
+$$L=(2\pi)^{-n/2}(\sigma^2)^{-n/2}\exp (-\frac{1}{2\sigma^2}(\boldsymbol{y} -\boldsymbol{X} \boldsymbol{\beta})'(\boldsymbol{y}-\boldsymbol{X} \boldsymbol{\beta}))
+$$
+两边同时取对数似然
+$$\ln L=-\frac{n}{2}\ln(2\pi)-\frac{n}{2}\ln (\sigma^2)-\frac{1}{2\sigma^2}(\boldsymbol{y} -\boldsymbol{X} \boldsymbol{\beta})'(\boldsymbol{y}-\boldsymbol{X} \boldsymbol{\beta})
+$$
+等价于使$(\boldsymbol{y} -\boldsymbol{X} \boldsymbol{\beta})'(\boldsymbol{y}-\boldsymbol{X} \boldsymbol{\beta})$达到最小，这又与普通最小二乘相同。
+\end{frame}
+
+
+\section{参数估计量的性质}
+\subsection{}
+\begin{frame}{参数估计量的性质}
+\begin{itemize}
+  \item {\color{blue} \bf 性质1}：$\hat{\boldsymbol{\beta}}$是随机向量$\boldsymbol{y}$的一个线性变换。
+  $$\hat{\boldsymbol{\beta}} = (\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y}
+  $$
+  \item {\color{blue} \bf 性质2}：$\hat{\boldsymbol{\beta}}$是$\boldsymbol{\beta}$的无偏估计。
+  \begin{equation*}\label{2}
+  \begin{aligned}
+  E(\hat{\boldsymbol{\beta}}) &= E((\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y})\\
+  &=(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'E(\boldsymbol{y})\\
+  &=(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'E(\boldsymbol{X} \boldsymbol{\beta}+\boldsymbol{\epsilon})\\
+  &=(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{X}\boldsymbol{\beta}\\
+  &=\boldsymbol{\beta}
+  \end{aligned}
+  \end{equation*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{参数估计量的性质}
+\begin{itemize}
+  \item {\color{blue} \bf 性质3}：$D(\hat{\boldsymbol{\beta}})=\sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}$
+  \begin{equation*}\label{2}
+  \begin{aligned}
+  D(\hat{\boldsymbol{\beta}}) &= cov(\hat{\boldsymbol{\beta}},\hat{\boldsymbol{\beta}})\\
+  &=cov((\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y},(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}'\boldsymbol{y})\\
+  &=(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}' cov(\boldsymbol{y},\boldsymbol{y}) ((\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}')'\\
+  &=(\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}' \sigma^2 \boldsymbol{X} (\boldsymbol{X}'\boldsymbol{X})^{-1}\\
+  &=\sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}\boldsymbol{X}' \boldsymbol{X} (\boldsymbol{X}'\boldsymbol{X})^{-1}\\
+  &=\sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}
+  \end{aligned}
+  \end{equation*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{参数估计量的性质}
+当$p=1$时即一元线性回归的情况，此时
+$$
+\boldsymbol{X}'\boldsymbol{X}=\begin{pmatrix}
+n & \sum_{i=1}^{n}x_i \\
+\sum_{i=1}^{n}x_i & \sum_{i=1}^{n}x_i^2
+\end{pmatrix}
+$$
+
+\begin{equation*}\label{2}
+\begin{aligned}
+(\boldsymbol{X}'\boldsymbol{X})^{-1}&= \frac{1}{\vert \boldsymbol{X}'\boldsymbol{X} \vert}
+\begin{pmatrix}
+\sum_{i=1}^{n}x_i^2 & -\sum_{i=1}^{n}x_i \\
+-\sum_{i=1}^{n}x_i & n
+\end{pmatrix}\\
+&=\frac{1}{nL_{xx}}
+\begin{pmatrix}
+\sum_{i=1}^{n}x_i^2 & -\sum_{i=1}^{n}x_i \\
+-\sum_{i=1}^{n}x_i & n
+\end{pmatrix}\\
+&=\begin{pmatrix}
+\frac{1}{nL_{xx}} \sum_{i=1}^{n}x_i^2 & -\frac{\bar{x}}{L_{xx}}\\
+-\frac{\bar{x}}{L_{xx}} & \frac{1}{L_{xx}}
+\end{pmatrix}
+\end{aligned}
+\end{equation*}
+
+$$
+D(\hat{\boldsymbol{\beta}})=\begin{pmatrix}
+var(\hat{\beta}_0) & cov(\hat{\beta}_0,\hat{\beta}_1) \\
+cov(\hat{\beta}_0,\hat{\beta}_1) & var(\hat{\beta}_1)
+\end{pmatrix}
+$$
+\end{frame}
+
+\begin{frame}{参数估计量的性质}
+\begin{itemize}
+  \item {\color{blue} \bf 性质4}：Gauss-Markov定理\\
+  预测函数 $\hat{y}_0 = \hat{\beta}_0 + \hat{\beta}_1 x_{10} + \hat{\beta}_2 x_{20} + \cdots + \hat{\beta}_p x_{p0}$ 是 $\hat{\boldsymbol{\beta}}$ 的线性函数。\\
+  {\bf Gauss-Markov定理：}\\
+  在假定 $E(\boldsymbol{y}) =\boldsymbol{X} \boldsymbol{\beta}, D(\boldsymbol{y})=\sigma^2 \boldsymbol{I}$ 时，$\boldsymbol{\beta}$ 的任一线性函数 $\boldsymbol{c}' \boldsymbol{\beta}$ 的最小方差线性无偏估计（BLUE）为 $\boldsymbol{c}' \hat{\boldsymbol{\beta}}$，其中，$\boldsymbol{c}$ 是任一维常数向量，$\hat{\boldsymbol{\beta}}$ 是 $\boldsymbol{\beta}$ 的最小二乘估计。
+\end{itemize}
+
+\begin{enumerate}[第1]
+  \item 取常数向量 $\boldsymbol{c}$ 的第 $j(j=0,1,\ldots,p)$ 个分量为1，其余分量为0，这时G-M定理表明最小二乘估计 $\hat{\beta}_j$ 是 $\beta_j$ 的最小方差线性无偏估计。
+  \item 可能存在 $y_1, y_2 , \ldots, y_n$ 的非线性函数，作为 $\boldsymbol{c}' \boldsymbol{\beta}$ 的无偏估计，比最小二乘估计 $\boldsymbol{c}' \hat{\boldsymbol{\beta}}$ 的方差更小。
+  \item 可能存在 $\boldsymbol{c}' \boldsymbol{\beta}$ 的有偏估计量，在某种意义（例如均方误差最小）下比最小二乘估计 $\boldsymbol{c}' \hat{\boldsymbol{\beta}}$ 更好。
+  \item 在正态假定下，$\boldsymbol{c}' \hat{\boldsymbol{\beta}}$ 是 $\boldsymbol{c}' \boldsymbol{\beta}$ 的最小方差无偏估计。也就是说，既不可能存在 $y_1, y_2 , \ldots, y_n$ 的非线性函数，也不可能存在 $y_1, y_2 , \ldots, y_n$ 的其它线性函数，作为 $\boldsymbol{c}' \boldsymbol{\beta}$ 的无偏估计，比最小二乘估计 $\boldsymbol{c}' \hat{\boldsymbol{\beta}}$  方差更小。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+  \item {\color{blue} 在线性回归中， 在给定$p+1$维的常向量$\bm{c}$,则在$\bm{c}^\top \bm{\beta}$的所有线性无偏估计中，最小二乘 $\bm{c}^\top \bm{\hat{\beta}}$ 是 $\bm{c}^\top \bm{\beta}$唯一具有最小方差的估计。}\footnote{梅长林,王宁.近待回归分析方法,2012,中国科学出版社.p.7}
+\end{itemize}
+证明：设$\bm{\alpha}^\top  \bm{Y}$为$\bm{c}^\top \bm{\beta}$的任意一个线性无偏估计，于是对一切的$\bm{\beta}$,有
+$$
+\bm{c}^\top \bm{\beta}= \E(  \bm{\alpha}^\top  \bm{Y} )= \bm{\alpha}^\top \bm{X}\bm{\beta}
+$$
+由于$\bm{\beta}$的任意性可得$\bm{c}^\top =\bm{\alpha}\bm{X}$. 任意一个向量 $\| \bm{Z}\|^2=\bm{Z}^\top \bm{Z}$,则 $\| \bm{Z}\|^2=0$ 当且仅当 $\bm{Z}=0$.
+\begin{align*}
+  &\Var(\bm{\alpha}^\top  \bm{Y})= \bm{\alpha}^\top \Var(\bm{Y}) \bm{\alpha}=\sigma^2 \| \bm{\alpha}\|^2 \\
+  & =\sigma^2 \| \bm{\alpha}-\bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{c} + \bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{c} \|^2\\
+  &=\sigma^2 \| \bm{\alpha}-\bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{c}\|^2 + \sigma^2 \bm{c}^\top (\bm{X}^\top \bm{X})^{-1} \bm{c} \\
+  &~~+2\sigma \bm{c}^\top (\bm{X}^\top \bm{X})^{-1} \bm{X}^\top (\bm{\alpha}-\bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{c})
+\end{align*}
+将$\bm{c}^\top =\bm{\alpha}\bm{X}$代入第三项得此项为零.$\Var(\bm{c}^\top \bm{\hat{\beta}}) = \sigma^2 \bm{c}^\top (\bm{X}^\top \bm{X})^{-1} \bm{c}$,故有
+$
+\Var(\bm{\alpha}^\top  \bm{Y})\geq \Var(\bm{c}^\top \bm{\hat{\beta}})
+$
+等号当且仅当$\bm{\alpha}-\bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{c}=0$成立，即 $\bm{\alpha}^\top  \bm{Y}=\bm{c}^\top (\bm{X}^\top \bm{X})^{-1}\bm{X}^\top \bm{Y}$
+\end{frame}
+
+
+\begin{frame}{参数估计量的性质}
+\begin{itemize}
+  \item {\color{blue} \bf 性质5}：$\Cov(\hat{\boldsymbol{\beta}},\boldsymbol{e})=0$\\
+  此性质说明 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$ 不相关，在正态假定下 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$ 等价于 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$独立，从而 $\hat{\boldsymbol{\beta}}$ 与 $SSE=\boldsymbol{e}'\boldsymbol{e}$独立。
+\\~\\
+%  \item {\color{blue} \bf 性质6}：当 $\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta},\sigma^2 \boldsymbol{I}_n)$ 时，则
+%  \begin{enumerate}[(1)]
+%  \item $\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta},\sigma^2(\boldsymbol{X}'\boldsymbol{X})^{-1})$
+%  \item $SSE/\sigma^2 \sim \chi^2(n-p-1)$
+%\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+%  \item {\color{blue} \bf 性质5}：$\Cov(\hat{\boldsymbol{\beta}},\boldsymbol{e})=0$\\
+%  此性质说明 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$ 不相关，在正态假定下 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$ 等价于 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$独立，从而 $\hat{\boldsymbol{\beta}}$ 与 $SSE=\boldsymbol{e}'\boldsymbol{e}$独立。
+%\\~\\
+  \item {\color{blue} \bf 性质6}：当 $\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta},\sigma^2 \boldsymbol{I}_n)$ (等价${\color{red} \bm{\varepsilon}\sim N(0, \sigma^{2} \bm{I}}$)时，则
+  \begin{enumerate}[(1)]
+  \item $\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta},\sigma^2(\boldsymbol{X}'\boldsymbol{X})^{-1})$
+  \item $SSE/\sigma^2 \sim \chi^2(n-p-1)  {\color{red} \Longrightarrow \E(SSE)=\sigma^{2}(n-p-1)}$
+  \item $\hat{\bm{\beta}}$ 与$SSE/\sigma^2$相互独立。
+\end{enumerate}
+\end{itemize}
+
+证明(2)\\
+
+由于$e=(\bm{I}-\bm{H})\bm{Y}=(\bm{I}-\bm{H})(\bm{X}\bm{\beta}+\bm{\varepsilon}){\color{red}=}(\bm{I}-\bm{H})\bm{\varepsilon}$，从而$SSE=\bm{\varepsilon}^\top (\bm{I}-\bm{H}) \bm{\varepsilon}$
+再由于$\bm{I}-\bm{H}$是对称幂等矩阵， 故$rank(\bm{I}-\bm{H}) =n-p-1$，从而存在$n$阶正交矩阵$\bm{P}$，使得
+$$
+\bm{P}^\top (\bm{I}-\bm{H}) \bm{P}=
+\begin{pmatrix}
+\bm{I}_{n-p-1} & \bm{0} \\
+\bm{0} &\bm{0}
+\end{pmatrix}
+$$
+令
+$$
+\bm{\eta}=(\eta_{1}, \dots, \eta_{n})^\top =\bm{P}^\top \bm{\varepsilon}  ~~{\color{red} \Longrightarrow\bm{\varepsilon}=\bm{P}\bm{\eta}}
+$$
+则$\E(\bm{\eta})=0,\Var(\bm{\eta})=\sigma^2 \bm{P}^\top \bm{P}=\sigma^2 \bm{I}$, 从而$\bm{\eta}\sim N(0, \sigma^2 \bm{I})$,进而
+$$
+\frac{1}{\sigma^2}SSE=\frac{1}{\sigma^2} \bm{\eta}^\top \bm{P}^\top (\bm{I}-\bm{H})\bm{P}\bm{\eta}=\frac{1}{\sigma^2}(\eta^{2}_{1}+\dots+\eta^{2}_{n-p-1})
+$$
+由于$\eta_{i}\sim N(0, \sigma^{2}$相互独立，并且$\eta_{i}/\sigma \sim N(0, 1)$,从而$\eta_{i}^{2}/\sigma^{2} \sim \chi^{2}(1)$,在由于$\chi^{2}$的可加性可得$SSE/\sigma^2 \sim \chi^2(n-p-1)$。
+%$SSE  = Y^\top (\bm{I}-\bm{H}) Y$
+
+\end{frame}
+
+\begin{frame}{证明(3)}
+将$n$阶正交矩阵$\bm{P}$分成两块$\bm{P}=(\bm{P}_{1}, \bm{P}_{2})$，其中$\bm{P}_{1}$由$\bm{P}$的前$n-p-1$列组成，从而
+$$
+\bm{\eta}=\begin{pmatrix}
+\bm{\eta}_{1}\\
+\bm{\eta}_{2}
+\end{pmatrix}=
+\begin{pmatrix}
+\bm{P}_{1}^\top\\
+\bm{P}_{2}^\top
+\end{pmatrix} \bm{\varepsilon}=
+\begin{pmatrix}
+\bm{P}_{1}^\top\bm{\varepsilon}\\
+\bm{P}_{2}^\top\bm{\varepsilon}
+\end{pmatrix}
+$$
+由于$\bm{\eta}\sim N(0, \sigma^2 \bm{I})$， 所以 $\bm{\eta}_{1} \sim N(0, \sigma^2 \bm{I}_{n-p-1})$， $\bm{\eta}_{2}\sim N(0, \sigma^2 \bm{I}_{p+1})$,，且$\bm{\eta}_{1}$和$\bm{\eta}_{2}$相互独立
+$$
+\hat{\bm{\beta}}-\bm{\beta}=\bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{\varepsilon}=\bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{P}\bm{\eta}=\triangleq \bm{D}\bm{\eta}
+$$
+其中$\bm{D}=\bm{X}(\bm{X}^\top \bm{X})^{-1} \bm{P}=(\bm{D}_{1}, \bm{D}_{2})$, $\bm{D}_{1}$由$\bm{D}$的前$n-p-1$列组成。
+$$
+(\bm{D}_{1}, \bm{D}_{2})
+\begin{pmatrix}
+\bm{I}_{n-p-1} & \bm{0} \\
+\bm{0} &\bm{0}
+\end{pmatrix}=
+\bm{D}\bm{P}^\top (\bm{I}-\bm{H}) \bm{P}={\color{red} \bm{X}(\bm{X}^\top \bm{X})^{-1}(\bm{I}-\bm{H})} \bm{P}=0
+$$
+从而$\bm{D}_{1}=0$,所以
+$$
+\hat{\bm{\beta}}-\bm{\beta}=(\bm{D}_{1}, \bm{D}_{2})\begin{pmatrix}
+\bm{\eta}_{1}\\
+\bm{\eta}_{2}
+\end{pmatrix}
+=\bm{D}_{2}\bm{\eta}_{2}
+$$
+
+由于$\bm{\eta}_{1}$和$\bm{\eta}_{2}$相互独立， 从而$SSE$和$\hat{\bm{\beta}}-\bm{\beta}$相互独立。
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+%  \item {\color{blue} \bf 性质5}：$\Cov(\hat{\boldsymbol{\beta}},\boldsymbol{e})=0$\\
+%  此性质说明 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$ 不相关，在正态假定下 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$ 等价于 $\hat{\boldsymbol{\beta}}$ 与 $\boldsymbol{e}$独立，从而 $\hat{\boldsymbol{\beta}}$ 与 $SSE=\boldsymbol{e}'\boldsymbol{e}$独立。
+%\\~\\
+  \item {\color{blue} \bf 性质7}：当 $\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta},\sigma^2 \boldsymbol{I}_n)$ (等价${\color{red} \bm{\varepsilon}\sim N(0, \sigma^{2} \bm{I}}$)时，则
+  \begin{enumerate}[(1)]
+  \item $\E (\bm{e})=\bm{0}$
+  \item $\Var (\bm{e})=\sigma^2 (\bm{I}-\bm{H})$
+  \item $\bm{e}\sim N(\bm{0}, \sigma^2 (\bm{I}-\bm{H}))$
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\section{约束的最小二乘}
+\subsection{}
+\begin{frame}{约束的最小二乘}
+
+$$
+\bm{Y}=\bm{X}\bm{\beta} + \bm{\varepsilon} ~~\bm{\varepsilon}\sim N(0, \sigma \bm{I})
+$$
+约束条件
+$$
+ \bm{A} \bm{\beta}=\bm{b}
+$$
+其中$\bm{A}$是$m\times (p+1)$阶行满秩常值矩阵。
+\begin{itemize}
+  \item {\color{red} 如何估计？}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+利用Lagrance方法求解：设$\bm{\lambda}$为Lagrange乘子，构造辅助函数
+\begin{align*}
+  F(\bm{\beta},\bm{\lambda}) & =(\bm{Y}-\bm{X}\bm{\beta})^\top +2\bm{\lambda}^\top (\bm{A} \bm{\beta}-\bm{b})\\
+   & =\bm{Y}\top \bm{Y} - 2\bm{\beta}^\top \bm{X}^\top \bm{Y} + \bm{\beta}^\top \bm{X}^\top \bm{X}\bm{\beta} +2  \bm{\beta}^\top \bm{A}^\top \bm{\lambda}-2\bm{b}^\top \bm{\lambda}
+\end{align*}
+求偏导
+\begin{align*}
+  &\frac{\partial F(\bm{\beta},\bm{\lambda})}{\partial \bm{\beta}} =-2\bm{X}^\top \bm{Y}+2\bm{X}^\top \bm{X}\bm{\beta}+2\bm{A}^\top \bm{\lambda}=0 \\
+   &  \frac{\partial F(\bm{\beta},\bm{\lambda})}{\partial \bm{\lambda}}=2(\bm{A} \bm{\beta}-\bm{b})=0
+\end{align*}
+进而得到
+\begin{align} \label{ch3eq1}
+   & \bm{X}^\top \bm{X}\bm{\beta}+\bm{A}^\top \bm{\lambda}=\bm{X}^\top \bm{Y} \\
+   &  \bm{A} \bm{\beta}=\bm{b}
+\end{align}
+令$\hat{\bm{\beta}}_{c}$和$\hat{\bm{\lambda}}_{c}$为上述方程组的解，
+$$
+\hat{\bm{\beta}}_{c}=(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{Y} - (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\bm{A}^\top\hat{\bm{\lambda}}_{c}
+$$
+\end{frame}
+
+\begin{frame}
+$$
+\hat{\bm{\beta}}_{c}=(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{Y} - (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\bm{A}^\top\hat{\bm{\lambda}}_{c}=\hat{\bm{\beta}}- (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\bm{A}^\top\hat{\bm{\lambda}}_{c}
+$$
+将$\hat{\bm{\beta}}_{c}$代入 \ref{ch3eq1}的第二等式$\bm{A} \bm{\beta}=\bm{b}$,从而
+$$
+\hat{\bm{\lambda}}_{c}=[\bm{A}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\bm{A}^\top]^{-1}(\bm{A}\hat{\bm{\beta}}-b)
+$$
+可以得到
+$$
+\hat{\bm{\beta}}_{c}=\hat{\bm{\beta}}- (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\bm{A}^\top[\bm{A}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}\bm{A}^\top]^{-1}(\bm{A}\hat{\bm{\beta}}-b)
+$$
+为了确保$\hat{\bm{\beta}}_{c}$的确为约束条件下的$\bm{\beta}$的最小二乘估计，我们还需要证明下面两点 ({\color{red} \bf 作业})
+\begin{itemize}
+  \item (1) $\bm{A}\hat{\bm{\beta}}_{c}=\bm{b}$
+  \item (2) 对一切满足条件的$\bm{A} \bm{\beta}=\bm{b}$的$\bm{\beta}$，都有$\|\bm{Y}-\bm{X}\bm{\beta}\|^2\geq \|\bm{Y}-\bm{X}\hat{\bm{\beta}}_{c}\|^2 $
+\end{itemize}
+\end{frame}
+
+
+\section{回归方程的显著性检验}
+\subsection{}
+\begin{frame}{$F$检验}
+\small
+原假设
+$$H_0:\quad  \beta_1=\beta_2=\cdots=\beta_p=0
+$$
+利用总离差平方和的分解式
+$$
+{\color{red} \sum_{i=1}^{n}(y_i-\bar{y})^2=\sum_{i=1}^{n}(\hat{y}_i-\bar{y})^2+\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}
+$$
+$$SST=SSR+SSE
+$$
+构造$F$检验统计量如下
+$$F=\frac{SSR/p}{SSE/(n-p-1)}
+$$
+当原假设成立时，$F$服从自由度为$(p,n-p-1)$的$F$分布。
+
+%\end{frame}
+%
+%\begin{frame}{F检验}
+\vspace{10pt}
+
+\begin{tabular}{cccc cc}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  方差来源 & 自由度 & 平方和 & 均方              & F值                          & p值          \\\hline
+  回归     & $p$    & $SSR$    & $\frac{SSR}{p}$    & $\frac{SSR/p}{SSE/(n-p-1)}$ & $P(F>F值)$ \\
+  残差     & $n-p-1$& $SSE$    & $\frac{SSE}{n-p-1}$&                             &               \\
+  总和     & $n-1$  & $SST$    &                    &                             &                \\
+  \hline
+\end{tabular}
+
+%\begin{figure}[htbp]
+%\centering
+%\caption{方差分析表}
+%\includegraphics[width=10cm,height=3cm]{pic31.png}
+%\end{figure}
+\end{frame}
+
+\begin{frame}{一线性般约束的检验}
+\small
+$$
+\bm{Y}=\bm{X}\bm{\beta} + \bm{\varepsilon} ~~\bm{\varepsilon}\sim N(0, \sigma \bm{I})
+$$
+下面我们假设
+$$
+H_{0}: \bm{A} \bm{\beta}=\bm{b}
+$$
+其中$\bm{A}$是$m\times (p+1)$阶行满秩常值矩阵。令
+\begin{align*}
+   & SSE=(\bm{Y}-\bm{X}\hat{\bm{\beta}})^\top(\bm{Y}-\bm{X}\hat{\bm{\beta}})  \\
+   & SSE(H_{0})=(\bm{Y}-\bm{X}\hat{\bm{\beta}}(H_{0}))^\top(\bm{Y}-\bm{X}\hat{\bm{\beta}}(H_{0}))
+\end{align*}
+
+\begin{block}{小组作业}
+假设 $\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta},\sigma^2 \boldsymbol{I}_n)$,则有
+\begin{itemize}
+  \item $SSE/\sigma^2\sim \chi_{n-p-1}^{2}$
+  \item 若$H_{0}$成立， 则$(SSE(H_{0})-SSE)/\sigma^{2}\sim \chi_{m}^{2}$
+  \item $SSE$和$SSE(H_{0})-SSE$相互独立
+  \item 若$H_{0}$成立，
+  $$
+  F=\frac{(SSE(H_{0})-SSE)/m}{SSE/(n-p-1)} \sim F(m, n-p-1)
+  $$
+\end{itemize}
+\end{block}
+\end{frame}
+
+%\begin{frame}
+%$$
+%\bm{Y}=\bm{X}\bm{\beta} + \bm{\varepsilon}
+%$$
+%\end{frame}
+
+\begin{frame}{$t$检验}
+原假设
+$$H_0: \quad \beta_j=0,\quad j=1,2,\ldots,p
+$$
+已知
+$$\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta},\sigma^2(\boldsymbol{X}'\boldsymbol{X})^{-1})
+$$
+记
+$$(\boldsymbol{X}'\boldsymbol{X})^{-1}=(c_{ij}), \quad i,j=0,1,2,\ldots,p
+$$
+由此可以构造$t$统计量
+$$t_j=\frac{\hat{\beta}_j}{\sqrt{c_{jj}} \hat{\sigma}}
+$$
+其中
+$$\hat{\sigma}=\sqrt{\frac{1}{n-p-1}\sum_{i=1}^{n}e_i^2}=\sqrt{\frac{1}{n-p-1}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}
+$$
+\end{frame}
+
+\begin{frame}{回归方程的显著性检验:偏 $F$ 统计量}
+从另外一个角度考虑自变量 $x_j$ 的显著性。
+\begin{itemize}
+  \item $y$ 对自变量 $x_1,x_2,\ldots,x_p$ 线性回归的残差平方和为 $SSE$，回归平方和为 $SSR$
+  \item 在剔除掉 $x_j$ 后，用 $y$ 对其余的 $p-1$ 个自变量做回归, 记所得的残差平方和为 $SSE_{(j)}$，回归平方和为 $SSR_{(j)}$，则自变量 $x_j$ 对回归的贡献为 $\Delta SSR_{(j)} =SSR-SSR_{(j)}$，称为 $x_j$ 的偏回归平方和。由此构造偏 $F$ 统计量
+      $$
+      F_j=\frac{\Delta SSR_{(j)}/1}{SSE/(n-p-1)}
+$$
+\item 当原假设 $H_{0j}:\beta_{j}=0$ 成立时，偏 $F$ 统计量 $F_j$ 服从自由度为 $(1,n-p-1)$ 的 $F$ 分布，此 $F$ 检验 $t$ 检验是一致的，可以证明 $F_j=t_j^2$。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{回归系数的置信区间}
+因为
+$$t_j=\frac{\hat{\beta}_j - \beta_j}{\sqrt{c_{jj}} \hat{\sigma}} \sim t(n-p-1)
+$$
+可得 $\beta_j$ 的置信度为 $1-\alpha$ 的置信区间为
+$$(\hat{\beta}_j- t_{\alpha/2}\sqrt{c_{jj}}\hat{\sigma},\hat{\beta}_j+ t_{\alpha/2}\sqrt{c_{jj}}\hat{\sigma})
+$$
+\end{frame}
+
+\begin{frame}{拟合优度}
+\begin{itemize}
+  \item 定义样本的决定系数
+$$
+R^2=\frac{SSR}{SST}=1-\frac{SSE}{SST}
+$$
+  \item $y$ 关于 $x_1,x_2,\cdots,x_p$ 的样本复相关系数
+   $$
+   R=\sqrt{R^2}=\sqrt{\frac{SSR}{SST}}
+$$
+
+  \item {\color{blue} 调整$R^2$}:
+  $$
+  R^2 = 1- \frac{n-1}{n-p-1}(1-R^2)
+  $$
+  通常用来比较自变量个数不同得模型拟合效果，不能理解为因变量$Y$得总方差中能由自变量解释得比例。
+\end{itemize}
+
+\end{frame}
+
+\section{中心化和标准化}
+\subsection{}
+\begin{frame}{中心化}
+多元线性回归模型的经验回归方程为
+$$\hat{y}= \hat{\beta}_0 +\hat{\beta}_1x_1 +\hat{\beta}_2x_2 +\cdots +\hat{\beta}_px_p
+$$
+经过样本中心$(\bar{x}_1,\bar{x}_2,\cdots,\bar{x}_p;\bar{y})$，将坐标原点移到样本中心，即
+$$x_{ij}'=x_{ij}-\bar{x}_j,\quad i=1,2,\ldots,n \quad j=1,2,\ldots,p
+$$
+$$y_i'=y_i-\bar{y}, \quad i=1,2,\ldots,n
+$$
+上述经验方程转换为
+$$\hat{y}'= \hat{\beta}_1x_1' +\hat{\beta}_2x_2' +\cdots +\hat{\beta}_px_p'
+$$
+回归常数项为
+$$\hat{\beta}_0 = \bar{y}-\hat{\beta}_1 \bar{x}_1 - \hat{\beta}_2 \bar{x}_2-\cdots -\hat{\beta}_p \bar{x}_p
+$$
+\end{frame}
+
+\begin{frame}{标准化回归系数}
+样本数据的标准化公式为
+$$x_{ij}^{*}=\frac{x_{ij}-\bar{x}_j}{\sqrt{L_{jj}}},\quad i=1,2,\cdots,n; \quad j=1,2,\cdots,p
+$$
+$$y_i^{*}=\frac{y_i-\bar{y}}{\sqrt{L_{yy}}},\quad i=1,2,\cdots,n
+$$
+其中
+$$L_{jj}=\sum_{i=1}^{n}(x_{ij}-\bar{x}_j)^2
+$$
+标准化样本的经验回归方程为
+$$\hat{y}^{*}= \hat{\beta}_1^{*} x_1^{*} +\hat{\beta}_2^{*} x_2^{*}  +\cdots +\hat{\beta}_p^{*} x_p^{*}
+$$
+$$\hat{\beta}_j^{*}=\frac{\sqrt{L_{jj}}}{\sqrt{L_{yy}}}\hat{\beta}_j, \quad j=1,2,\cdots,p
+$$
+\end{frame}
+
+
+\section{相关阵与偏相关系数}
+\subsection{}
+\begin{frame}{样本相关阵}
+$r_{ij}$ 为$x_i$ 与 $x_j$之间简单的相关系数，自变量样本相关阵
+$$\boldsymbol{r}=\begin{pmatrix}
+1 & r_{12} & \cdots & r_{1p}\\
+r_{21} & 1 & \cdots & r_{2p}\\
+\vdots & \vdots  & &\vdots \\
+r_{p1} & r_{p2} & \cdots & 1
+\end{pmatrix}
+$$
+同时，相关阵可表示为：
+$$\boldsymbol{r}=(\boldsymbol{X}^{*})'\boldsymbol{X}^{*}
+$$
+$\boldsymbol{X}^{*}=(x_{ij}^{*})_{n \times p}$表示中心标准化的设计阵。\\
+增广的样本相关阵为：
+$$\boldsymbol{r}=\begin{pmatrix}
+1 & r_{y1} & r_{y2} & \cdots & r_{yp}\\
+r_{1y} & 1 & r_{12}& \cdots & r_{1p}\\
+r_{2y} & r_{21} & 1& \cdots & r_{2p}\\
+\vdots & \vdots & \vdots  & &\vdots \\
+r_{py} & r_{p1} & r_{p2}& \cdots & 1
+\end{pmatrix}
+$$
+\end{frame}
+
+\subsection{}
+\begin{frame}{偏相关系数}
+\qquad 当其他变量被固定后,给定的任两个变量之间的相关系数,叫偏相关系数。\\
+\qquad 偏相关系数可以度量 $p+1$ 个变量 $y,x_1,x_2,\cdots x_p$ 之中任意两个变量的线性相关程度,而这种相关程度是在固定其余 $p-1$ 个变量的影响下的线性相关。\\
+\qquad 偏判定系数测量在回归方程中已包含若干个自变量时，再引入某一个新的自变量后 $y$ 的剩余变差的相对减少量，它衡量 $y$ 的变差减少的边际贡献。
+\end{frame}
+
+\begin{frame}{两个自变量的偏判定系数}
+二元线性回归模型为：
+$$y_i=\beta_0+\beta_1x_{i1} +\beta_2x_{i2} + \epsilon_i,\quad i=1,2,\cdots,n
+$$
+记$SSE(x_2)$是模型中只含有自变量 $x_2$ 时 $y$ 的残差平方和，$SSE(x_1，x_2)$ 是模型中同时含有自变量 $x_1$ 和 $x_2$ 时 $y$ 的残差平方和。因此模型中已含有 $x_2$ 时再加入$x_1$ 使 $y$ 的剩余变差的相对减小量为
+$$r_{y1;2}^2=\frac{SSE(x_2)-SSE(x_1,x_2)}{SSE(x_2)}
+$$
+此即模型中已含有 $x_2$ 时，$y$ 与 $x_1$ 的偏判定系数。\\
+同样，模型中已含有 $x_1$ 时，$y$ 与$x_2$的偏判定系数为：
+$$r_{y2;2}^2=\frac{SSE(x_1)-SSE(x_1,x_2)}{SSE(x_1)}
+$$
+\end{frame}
+
+\begin{frame}{一般情况}
+$$r_{y1;2,\cdots,p}^2=\frac{SSE(x_2,\cdots,x_p)-SSE(x_1,x_2,\cdots,x_p)}{SSE(x_2,\cdots,x_p)}
+$$
+偏决定系数与回归系数显著性检验的偏 $F$ 值是等价的。
+\end{frame}
+
+\begin{frame}{偏相关系数}
+偏判定系数的平方根称为偏相关系数，其符号与相应的回归系数的符号相同。偏相关系数与回归系数显著性检验的 $t$ 值是等价的。\\
+固定$x_3,\cdots,x_p$ 保持不变时，$x_1$ 与 $x_2$ 之间的偏相关系数为：
+$$r_{12;3,\cdots,p}=\frac{-\Delta_{12}}{\sqrt{\Delta_{11} \cdot \Delta_{22}}}
+$$
+其中符号$\Delta_{ij}$表示相关矩阵$(r_{ij})_{p\times p}$第$i$行第$j$列元素的代数余子式。验证以下关系
+$$
+r_{12;3}=\frac{r_{12}-r_{13}r_{23}}{\sqrt{(1-r_{13}^2)(1-r_{23}^2)}}
+$$
+\end{frame}
+
+
+\section{本章小结与评注}
+\subsection{}
+\begin{frame}{本章小结与评注}
+当回归模型的未知参数估计出来后，我们实际上是由$n$组样本观测数据得到一个经验回归方程，这个经验回归方程是否真正反映了变量$y$和变量 $x_1,x_2,\cdots,x_p$ 之间的线性关系，这就需要进一步对回归方程进行检验。一种检验方法是拟合优度检验，即用样本决定系数的大小来衡量模型的拟合优度。样本决定系数$R^2$越大，说明回归方程拟合原始数据$y$的观测值的效果越好。但由于$R^2$ 的大小与样本容量$n$以及自变量个数$p$有关，当$n$与$p$的数目接近时，$R^2$容易接近于1，这说明$R^2$中隐含着一些虚假成分。因此，仅由$R^2$的值很大，去推断模型优劣一定要慎重。前几年我们在著名的《经济研究》杂志也看到有作者忽略了这一问题，犯了统计方法应用的低级错误。
+\end{frame}
+
+\begin{frame}{本章小结与评注}
+\qquad 对于回归方程的显著性检验，我们用$F$统计量去判断假设$H_0:\beta_1=\beta_2=\cdots=\beta_p=0$ 是否成立。当给定显著性水平 $\alpha$ 时，\\
+$F > F_{\alpha}(p,n-p-1)$，则拒绝假设$H_0$，否则不拒绝$H_0$。接受假设$H_0$ 和拒绝假设$H_0$ 对于回归方程来说意味着什么，这仍需慎重对待。
+
+
+\qquad 一般来说，当接受假设$H_0$时，认为在给定的显著性水平$\alpha$之下，自变量$x_1,x_2,\cdots,x_p$对因变量y无显著性影响，于是通过$x_1,x_2,\cdots,x_p$去推断$y$也就无多大意义。在这种情况下，一方面可能这个问题本来应该用非线性模型去描述，而我们误用线性模型描述了，使得自变量对因变量无显著影响；另一方面可能是在考虑自变量时由于我们认识上的局限性把一些影响因变量$y$ 的自变量漏掉了。这就从两个方面提醒我们去重新考虑建模问题。
+
+\end{frame}
+
+\begin{frame}{本章小结与评注}
+\qquad 当我们拒绝了假设$H_0$时，我们也不能过于相信这个检验，认为这个回归模型已经很完美了。其实当拒绝$H_0$时，我们只能认为这个回归模型在一定程度上说明了自变量$x_1,x_2,\cdots,x_p$ 与因变量$y$的线性关系。因为这时仍不能排除我们漏掉了一些重要的自变量。参考文献［2］的作者认为,此检验只宜用于辅助性的、事后验证性质的目的。研究者在事前根据专业知识及经验，认为已把较重要的自变量选入了，且在一定误差限度内认为模型为线性是合理的。经过样本数据计算后，可以用来验证一下，原先的考虑是否周全。这时,若拒绝$H_0$，可认为至少并不与他原来的设想矛盾。如果接受$H_0$，可以认为模型是不能反映因变量$y$与自变量$x_1,x_2,\cdots,x_p$的线性关系，这个模型就不能应用于实际预测和分析。
+\end{frame}
+
+
+\section{补充}
+\subsection{}
+\begin{frame}[fragile]{补充}
+\begin{block}{矩阵QR分解}
+设$\mathbf{A}\in \mathbb{R}^{n\times m}$，则存在 $\mathbf{Q}\in \mathbb{R}^{n \times p}$，且$\mathbf{Q}^\top \mathbf{Q}=\mathbf{I}_{p}$，以及一个上三角矩阵   $\mathbf{R}\in \mathbb{R}^{p \times p}$ 使得
+$$
+\mathbf{A}=\mathbf{Q}\mathbf{R}
+$$
+\end{block}
+\begin{Verbatim}[label={奇异值分解代码}, frame=lines, numbers=left]
+> rm(list=ls())
+> A <- matrix(1:6, 2, 3)
+> A.qr <- qr(A)
+> Q <- qr.Q(A.qr)
+> crossprod(Q)
+             [,1]         [,2]
+[1,] 1.000000e+00 5.551115e-17
+[2,] 5.551115e-17 1.000000e+00
+> R <- qr.R(A.qr)
+> Q %*% R
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+\end{Verbatim}
+\end{frame}
+
+
+\begin{frame}[fragile]
+线性回归求解是一个技术问题，参数估计表达式$\widehat{\beta}=(\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y} $。逆的解法比较复杂。假设
+$$
+\mathbf{X}=\mathbf{Q}\mathbf{R}
+$$
+则
+\begin{align*}
+  \widehat{\beta}&= (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y}    \\
+   &=( \mathbf{R}^\top \mathbf{Q}^\top \mathbf{Q}\mathbf{R} )^{-1} \mathbf{R}^\top \mathbf{Q}^\top  \mathbf{Y}\\
+   &=( \mathbf{R}^\top \mathbf{R} )^{-1} \mathbf{R}^\top \mathbf{Q}^\top  \mathbf{Y}\\
+   &= \mathbf{R}^{-1} \mathbf{R} ^{-\top} \mathbf{R}^\top \mathbf{Q}^\top  \mathbf{Y}\\
+   &= \mathbf{R}^{-1} \mathbf{Q}^\top  \mathbf{Y}\\
+\end{align*}
+第三步使用逆的性质$(\mathbf{A}\mathbf{B})^{-1}= \mathbf{R}^{-1} \mathbf{Q}^{-1}$。这样大大降低了计算成本。上三角矩阵的逆求解比普通矩阵逆好很多。下面我们模拟数据看看这个计算效果。我们比较了{\tt lm}和QR分解，发现结果是一致。原因前者求解是基于QR分级得到的(是否？看看{\tt ?rm}文档)
+\end{frame}
+
+
+\begin{frame}[fragile]
+\tiny
+\begin{Verbatim}[label={QR代码}, frame=lines, numbers=left]
+> rm(list=ls())
+> library(MASS)
+> ###data begin
+> p <- 5
+> n <- 100
+> mu <- rep(0, p)
+> sigm <- diag(p)
+> x <- MASS::mvrnorm(n=n, mu=mu, Sigma=sigm)
+> beta <- 1 + runif(p, min = 0, max = 1)
+> y <- x %*% beta + rnorm(n)
+> ###data end
+>
+> ###X QR begin
+> x.qr <- qr(x)
+> Q <- qr.Q(x.qr)
+> R <- qr.R(x.qr)
+> ###X QR end
+>
+> beta_hat <- solve(R) %*% t(Q) %*% y
+> beta_ols <- coef(lm(y~x-1))
+> cbind(beta_ols, beta_hat)
+\end{Verbatim}
+\end{frame}
+\begin{frame}{作业}
+\begin{itemize}
+  \item 作业：
+  \begin{itemize}
+    \item 证明：
+    \item 实例分析：  p.84 3.11 备注：自己编程
+  \end{itemize}
+
+  \item 小组作业： 证明
+\end{itemize}
+\end{frame}
+%\begin{frame}%  \frametitle{结束语}
+%%\begin{figure}
+%%  \centering
+%%  % Requires \usepackage{graphicx}
+%%  \includegraphics[width=90mm]{images/00.png}\\
+%%\end{figure}
+%%%\begin{center}
+%%%{\yichu\textcolor[rgb]{1.00,0.00,0.00}{\li Thank you!}}\bigskip
+%%%\end{center}
+%\begin{center}
+%\calligra{ Thank you!\huge}
+%\end{center}
+%%\begin{center}
+%%{\yichu \color{blue}{\calligra{ 谢谢大家}！}}\bigskip
+%%\end{center}
+%\end{frame}
+
+
+\end{CJK*}
+\end{document}
